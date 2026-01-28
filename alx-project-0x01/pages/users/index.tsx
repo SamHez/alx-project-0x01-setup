@@ -1,19 +1,30 @@
 import UserCard from "@/components/common/UserCard";
+import UserModal from "@/components/common/UserModal";
 import Header from "@/components/layout/Header";
-import { UserProps } from "@/interfaces";
+import { UserProps, UserData } from "@/interfaces";
+import { useState } from "react";
 
 interface UsersPageProps {
     posts: UserProps[];
 }
 
 const Users: React.FC<UsersPageProps> = ({ posts }) => {
+    const [isModalOpen, setModalOpen] = useState(false);
+
+    const handleAddUser = (user: UserData) => {
+        console.log("New User:", user);
+    }
+
     return (
         <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow p-4 bg-gray-50">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-3xl font-bold text-gray-900 px-4">Our Users</h1>
-                    <button className="bg-blue-700 hover:bg-blue-800 px-6 py-2 rounded-full text-white font-semibold transition-colors shadow-md">
+                    <button
+                        onClick={() => setModalOpen(true)}
+                        className="bg-blue-700 hover:bg-blue-800 px-6 py-2 rounded-full text-white font-semibold transition-colors shadow-md"
+                    >
                         Add User
                     </button>
                 </div>
@@ -25,6 +36,10 @@ const Users: React.FC<UsersPageProps> = ({ posts }) => {
                     }
                 </div>
             </main>
+
+            {isModalOpen && (
+                <UserModal onClose={() => setModalOpen(false)} onSubmit={handleAddUser} />
+            )}
         </div>
     )
 }
