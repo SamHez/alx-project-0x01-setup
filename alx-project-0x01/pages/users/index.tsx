@@ -11,7 +11,7 @@ interface UsersPageProps {
 const Users: React.FC<UsersPageProps> = ({ posts }) => {
     const [isModalOpen, setModalOpen] = useState(false);
 
-    const handleAddUser = (user: UserData) => {
+    const handleAddUser = (user: UserProps) => {
         console.log("New User:", user);
     }
 
